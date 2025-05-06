@@ -8,6 +8,9 @@ const studyMaterialRoutes = require('./routes/studyMaterial'); // Import the stu
 const gradeReportRoutes = require('./routes/gradeReport'); // Import the gradeReport routes
 const timetableRoutes = require('./routes/timetable'); // Import the timetable routes
 const attendanceRoutes = require('./routes/attendance'); // Import the attendance routes
+const announcementRoutes = require('./routes/announcement'); // Import the announcement routes
+const examScheduleRoutes = require('./routes/examSchedule'); // Import the examSchedule routes
+const facilityFeeRoutes = require('./routes/facilityFee'); // Import the facilityFee routes
 
 const app = express();
 
@@ -26,6 +29,9 @@ app.use('/api/study-materials', studyMaterialRoutes); // studyMaterial routes
 app.use('/api/grade-report', gradeReportRoutes); // gradeReport routes
 app.use('/api/timetable', timetableRoutes); // timetable routes
 app.use('/api/attendance', attendanceRoutes); // attendance routes
+app.use('/api/announcement', announcementRoutes); // announcement routes
+app.use('/api/exam-schedule', examScheduleRoutes); // examSchedule routes
+app.use('/api/facility-fee', facilityFeeRoutes); // facilityFee routes
 
 // Start Server
 const PORT = 3000;
