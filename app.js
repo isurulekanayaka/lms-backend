@@ -2,8 +2,12 @@ const express = require('express');
 const connectDB = require('./config/db');
 const authRoutes = require('./routes/auth');
 const courseRoutes = require('./routes/course'); // Import the course routes
-const moduleRoutes = require('./routes/module'); // Import the course routes
-const studentRoutes = require('./routes/student'); // Import the course routes
+const moduleRoutes = require('./routes/module'); // Import the module routes
+const studentRoutes = require('./routes/student'); // Import the student routes
+const studyMaterialRoutes = require('./routes/studyMaterial'); // Import the studyMaterial routes
+const gradeReportRoutes = require('./routes/gradeReport'); // Import the gradeReport routes
+const timetableRoutes = require('./routes/timetable'); // Import the timetable routes
+const attendanceRoutes = require('./routes/attendance'); // Import the attendance routes
 
 const app = express();
 
@@ -16,8 +20,12 @@ app.use(express.json());
 // Use the routes
 app.use('/api/auth', authRoutes); // Auth routes
 app.use('/api/courses', courseRoutes); // Course routes
-app.use('/api/modules', moduleRoutes); // Course routes
-app.use('/api/student', studentRoutes); // Course routes
+app.use('/api/modules', moduleRoutes); // module routes
+app.use('/api/student', studentRoutes); // student routes
+app.use('/api/study-materials', studyMaterialRoutes); // studyMaterial routes
+app.use('/api/grade-report', gradeReportRoutes); // gradeReport routes
+app.use('/api/timetable', timetableRoutes); // timetable routes
+app.use('/api/attendance', attendanceRoutes); // attendance routes
 
 // Start Server
 const PORT = 3000;
