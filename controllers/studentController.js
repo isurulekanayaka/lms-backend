@@ -1,10 +1,9 @@
-// controllers/studentController.js
-
 const User = require('../models/User');
 const Student = require('../models/Student');
 const Parent = require('../models/Parent');
 const bcrypt = require('bcryptjs');
 
+// Create a new student and parent
 exports.createStudent = async (req, res) => {
   const {
     firstName,
@@ -83,6 +82,102 @@ exports.createStudent = async (req, res) => {
       student: savedStudent,
       parent: savedParent
     });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+
+// Get all students
+exports.getAllStudents = async (req, res) => {
+  try {
+    const students = await Student.find().populate('user', 'firstName lastName email').populate('courses');
+    res.status(200).json(students);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+
+// Get a student by ID
+exports.getStudentById = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const student = await Student.findById(id).populate('user', 'firstName lastName email').populate('courses');
+    if (!student) return res.status(404).json({ msg: 'Student not found' });
+    res.status(200).json(student);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+
+// Update a student
+exports.updateStudent = async (req, res) => {
+  const { id } = req.params;
+  const { courses, address, contact } = req.body;
+
+  try {
+    const student = await Student.findById(id);
+    if (!student) return res.status(404).json({ msg: 'Student not found' });
+
+    student.courses = courses || student.courses;
+    student.address = address || student.address;
+    student.contact = contact || student.contact;
+
+    const updatedStudent = await student.save();
+    res.status(200).json({ msg: 'Student updated', student: updatedStudent });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+
+// Delete a student
+exports.deleteStudent = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const student = await Student.findById(id);
+    if (!student) return res.status(404).json({ msg: 'Student not found' });
+
+    await Student.findByIdAndDelete(id);
+    res.status(200).json({ msg: 'Student deleted' });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+
+// Get all parents
+exports.getAllParents = async (req, res) => {
+  try {
+    const parents = await Parent.find().populate('user', 'firstName lastName email').populate('student');
+    res.status(200).json(parents);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+
+// Get a parent by student ID
+exports.getParentByStudentId = async (req, res) => {
+  const { studentId } = req.params;
+
+  try {
+    const parent = await Parent.findOne({ student: studentId }).populate('user', 'firstName lastName email').populate('student');
+    if (!parent) return res.status(404).json({ msg: 'Parent not found' });
+    res.status(200).json(parent);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+
+// Delete a parent
+exports.deleteParent = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const parent = await Parent.findById(id);
+    if (!parent) return res.status(404).json({ msg: 'Parent not found' });
+
+    await Parent.findByIdAndDelete(id);
+    res.status(200).json({ msg: 'Parent deleted' });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
