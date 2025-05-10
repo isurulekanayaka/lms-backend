@@ -11,6 +11,7 @@ const attendanceRoutes = require('./routes/attendance'); // Import the attendanc
 const announcementRoutes = require('./routes/announcement'); // Import the announcement routes
 const examScheduleRoutes = require('./routes/examSchedule'); // Import the examSchedule routes
 const facilityFeeRoutes = require('./routes/facilityFee'); // Import the facilityFee routes
+const userRoutes = require('./routes/user'); // Import the user routes
 
 const app = express();
 
@@ -32,6 +33,7 @@ app.use('/api/attendance', attendanceRoutes); // attendance routes
 app.use('/api/announcement', announcementRoutes); // announcement routes
 app.use('/api/exam-schedule', examScheduleRoutes); // examSchedule routes
 app.use('/api/facility-fee', facilityFeeRoutes); // facilityFee routes
+app.use('/api/user', userRoutes); // user routes
 
 // Start Server
 const PORT = 3000;
