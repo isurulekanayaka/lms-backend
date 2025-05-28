@@ -25,7 +25,7 @@ exports.getExamScheduleById = async (req, res) => {
   const { id } = req.params;
 
   try {
-    const schedule = await ExamSchedule.findById(id).populate('moduleId', 'name');
+    const schedule = await ExamSchedule.findById(id).populate('moduleId', 'moduleName');
 
     if (!schedule) {
       return res.status(404).json({ msg: 'Exam schedule not found' });
@@ -100,7 +100,7 @@ exports.searchExamSchedule = async (req, res) => {
 // f6: Get All Exam Schedules
 exports.getAllExamSchedules = async (req, res) => {
   try {
-    const schedules = await ExamSchedule.find().populate('moduleId', 'name');
+    const schedules = await ExamSchedule.find().populate('moduleId', 'moduleName');
     
     res.status(200).json(schedules);
   } catch (err) {
