@@ -8,8 +8,8 @@ exports.createFacilityPayment = async (req, res) => {
   const { parentId, courseId, facilityFeeId, amountPaid, paymentMethod } = req.body;
 
   try {
-    // Check if Parent exists
-    const parent = await Parent.findById(parentId);
+    // Find Parent by user._id (not Parent._id)
+    const parent = await Parent.findOne({ user: parentId });
     if (!parent) {
       return res.status(404).json({ msg: 'Parent not found' });
     }
@@ -22,7 +22,7 @@ exports.createFacilityPayment = async (req, res) => {
 
     // Create new facility payment
     const newFacilityPayment = new FacilityPayment({
-      parentId,
+      parentId: parent._id, // Use the actual Parent._id in the FacilityPayment
       courseId,
       facilityFeeId,
       amountPaid,
@@ -36,6 +36,7 @@ exports.createFacilityPayment = async (req, res) => {
     res.status(500).json({ msg: 'Server error' });
   }
 };
+
 
 // 2. Get Facility Payment by ID
 exports.getFacilityPaymentById = async (req, res) => {

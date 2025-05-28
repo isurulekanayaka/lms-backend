@@ -14,11 +14,19 @@ const facilityFeeRoutes = require('./routes/facilityFee'); // Import the facilit
 const userRoutes = require('./routes/user'); // Import the user routes
 const facilityPaymentRoutes = require('./routes/facilityPaymentRoutes'); // Import the facilityPayment routes
 const parentRoutes = require('./routes/parentRoutes'); // Import the parent routes
+const cors = require('cors');
 
 const app = express();
 
 // Connect to MongoDB
 connectDB();
+
+app.use(cors({
+  origin: 'http://localhost:5173',
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true,
+}));
 
 // Middleware to parse JSON requests
 app.use(express.json());
