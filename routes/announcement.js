@@ -32,4 +32,6 @@ router.get('/event-count', auth, announcementController.getPendingEventsCount);
 
 router.get('/pending', auth, announcementController.getPendingAnnouncements);
 
+router.get('/search/type', auth, announcementController.getAnnouncementsByType);
+
 module.exports = router;
