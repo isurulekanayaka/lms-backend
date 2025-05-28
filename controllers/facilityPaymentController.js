@@ -126,3 +126,14 @@ exports.searchFacilityPayments = async (req, res) => {
     res.status(500).json({ msg: 'Server error' });
   }
 };
+
+// Get count of all Facility Payments
+exports.getFacilityPaymentsCount = async (req, res) => {
+  try {
+    const count = await FacilityPayment.countDocuments();
+    res.status(200).json({ count });
+  } catch (err) {
+    console.error('Error fetching facility payments count:', err);
+    res.status(500).json({ msg: 'Server error' });
+  }
+};

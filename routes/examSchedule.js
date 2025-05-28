@@ -14,12 +14,15 @@ router.get('/search', auth, examScheduleController.searchExamSchedule);
 router.get('/all', auth, examScheduleController.getAllExamSchedules);
 
 // f2: Get exam schedule by ID
-router.get('/:id', auth, examScheduleController.getExamScheduleById);
+router.get('/id/:id', auth, examScheduleController.getExamScheduleById);
 
 // f3: Update exam schedule
 router.put('/update/:id', auth, lectureOnly, examScheduleController.updateExamSchedule);
 
 // f4: Delete exam schedule
 router.delete('/delete/:id', auth, lectureOnly, examScheduleController.deleteExamSchedule);
+
+// f7: Get Upcoming Exam Schedules
+router.get('/pending/exam', auth, examScheduleController.getUpcomingExamSchedules);
 
 module.exports = router;

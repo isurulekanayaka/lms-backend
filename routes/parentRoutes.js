@@ -10,8 +10,8 @@ router.get('/all', auth, adminOnly, parentController.getAllParents);
 router.get('/student-courses-fees', auth, parentController.getStudentCourseFees);
 router.get('/student/grades', auth,parentController.getStudentModulesWithGrades);
 
-router.get('/:id', auth, parentController.getParentById);
-router.put('/:id', auth, adminOnly, parentController.updateParent);
-router.delete('/:id', auth, adminOnly, parentController.deleteParent);
+router.get('/id/:id', auth, parentController.getParentById);
+router.put('/id/:id', auth, adminOnly, parentController.updateParent);
+router.delete('/id/:id', auth, adminOnly, parentController.deleteParent);
 
 module.exports = router;

@@ -25,6 +25,11 @@ router.get('/search/date', auth, announcementController.searchByDate);
 router.get('/search/audience', auth, announcementController.searchByAudience);
 
 // f7: Get Announcement by ID
-router.get('/:id', auth, announcementController.getAnnouncementById); 
+router.get('/id/:id', auth, announcementController.getAnnouncementById); 
+
+// Get count of pending events (events with type 'event' and date in the future)
+router.get('/event-count', auth, announcementController.getPendingEventsCount);
+
+router.get('/pending', auth, announcementController.getPendingAnnouncements);
 
 module.exports = router;

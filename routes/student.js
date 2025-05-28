@@ -11,7 +11,7 @@ router.post('/add', auth, adminOnly, studentController.createStudent);
 router.get('/all', auth, adminOnly, studentController.getAllStudents);
 
 // Get a student by ID
-router.get('/:id', auth, studentController.getStudentById);
+router.get('/id/:id', auth, studentController.getStudentById);
 
 // Update a student's details
 router.put('/update/:id', auth, adminOnly, studentController.updateStudent);
