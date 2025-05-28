@@ -3,10 +3,10 @@ const router = express.Router();
 const eventApplyController = require('../controllers/eventApplyController'); // adjust path if needed
 
 // Create new EventApply
-router.post('/', eventApplyController.createEventApply);
+router.post('/create', eventApplyController.createEventApply);
 
 // Get all EventApplies
-router.get('/', eventApplyController.getAllEventApplies);
+router.get('/all', eventApplyController.getAllEventApplies);
 
 // Get one EventApply by ID
 router.get('/id/:id', eventApplyController.getEventApplyById);

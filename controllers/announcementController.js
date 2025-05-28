@@ -2,7 +2,7 @@ const Announcement = require('../models/Announcement');
 
 // f1: Create Announcement
 exports.createAnnouncement = async (req, res) => {
-  const { title, message, type = 'announcement', audience, date } = req.body;
+  const { title, message, type , audience, date } = req.body;
 
   // Basic validation
   if (!title || !message) {
@@ -145,3 +145,24 @@ exports.getPendingAnnouncements = async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 };
+
+// Get announcements filtered by type and future date
+exports.getAnnouncementsByType = async (req, res) => {
+  const { type } = req.query;
+
+  try {
+    const now = new Date();
+
+    // Filter announcements by type and date in the future
+    const filter = {
+      ...(type && { type }),
+      date: { $gt: now }
+    };
+
+    const announcements = await Announcement.find(filter).sort({ date: -1 });
+    res.status(200).json(announcements);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+

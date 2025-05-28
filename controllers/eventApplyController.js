@@ -16,8 +16,11 @@ exports.createEventApply = async (req, res) => {
 exports.getAllEventApplies = async (req, res) => {
   try {
     const applications = await EventApply.find()
-      .populate('studentId', 'firstName email')    // populate student fields
-      .populate('eventId', 'title message');       // populate event announcement fields
+      .populate({
+        path: 'studentId',
+        populate: { path: 'user', select: 'firstName email' }
+      })
+      .populate('eventId', 'title message date');
     res.status(200).json(applications);
   } catch (error) {
     res.status(500).json({ error: error.message });
