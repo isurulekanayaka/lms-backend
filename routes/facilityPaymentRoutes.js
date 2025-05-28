@@ -6,7 +6,7 @@ const adminOnly = require('../middleware/adminOnly');
 const facilityPaymentController = require('../controllers/facilityPaymentController');
 
 // f1: Create Facility Payment (admin only)
-router.post('/add', auth, adminOnly, facilityPaymentController.createFacilityPayment);
+router.post('/add', auth, facilityPaymentController.createFacilityPayment);
 
 // f3: Get all Facility Payments (must come before /:id)
 router.get('/all', auth, facilityPaymentController.getAllFacilityPayments);

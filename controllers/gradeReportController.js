@@ -14,7 +14,7 @@ exports.publishGradeReport = async (req, res) => {
     if (!module) return res.status(404).json({ msg: 'Module not found' });
 
     const newGradeReport = new GradeReport({
-      studentId,
+      studentId: student._id,
       moduleId,
       date,
       grade,
