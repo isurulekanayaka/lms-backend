@@ -31,8 +31,21 @@ exports.createUser = async (req, res) => {
 // Get all users
 exports.getAllUsers = async (req, res) => {
   try {
-    const users = await User.find().select('-password');
-    res.json(users);
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 10;
+    const skip = (page - 1) * limit;
+
+    const totalUsers = await User.countDocuments();
+    const users = await User.find()
+      .select('-password')
+      .skip(skip)
+      .limit(limit);
+
+    res.json({
+      users,
+      totalPages: Math.ceil(totalUsers / limit),
+      currentPage: page,
+    });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
@@ -85,15 +98,29 @@ exports.deleteUser = async (req, res) => {
 
 // Search by role or email
 exports.searchUser = async (req, res) => {
-  const { role, email } = req.query;
   try {
-    const query = {};
-    if (role) query.role = role;
-    if (email) query.email = email;
+    const { email, page = 1, limit = 10 } = req.query;
 
-    const users = await User.find(query).select('-password');
-    res.json(users);
-  } catch (err) {
-    res.status(500).json({ error: err.message });
+    if (!email) {
+      return res.status(400).json({ message: 'Email query parameter is required.' });
+    }
+
+    const users = await User.find({ email: { $regex: email, $options: 'i' } })
+      .skip((page - 1) * limit)
+      .limit(parseInt(limit));
+
+    const totalUsers = await User.countDocuments({
+      email: { $regex: email, $options: 'i' },
+    });
+
+    res.status(200).json({
+      users,
+      totalPages: Math.ceil(totalUsers / limit),
+    });
+  } catch (error) {
+    console.error('Search error:', error);
+    res.status(500).json({ message: 'Server error', error: error.message });
   }
 };
+
+
