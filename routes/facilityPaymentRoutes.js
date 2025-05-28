@@ -15,12 +15,16 @@ router.get('/all', auth, facilityPaymentController.getAllFacilityPayments);
 router.get('/search', auth, facilityPaymentController.searchFacilityPayments);
 
 // f2: Get Facility Payment by ID
-router.get('/:id', auth, facilityPaymentController.getFacilityPaymentById);
+router.get('/id/:id', auth, facilityPaymentController.getFacilityPaymentById);
 
 // f4: Update Facility Payment (admin only)
 router.put('/update/:id', auth, adminOnly, facilityPaymentController.updateFacilityPayment);
 
 // f5: Delete Facility Payment (admin only)
 router.delete('/delete/:id', auth, adminOnly, facilityPaymentController.deleteFacilityPayment);
+
+// Get count of all Facility Payments
+router.get('/count', auth, facilityPaymentController.getFacilityPaymentsCount);
+
 
 module.exports = router;

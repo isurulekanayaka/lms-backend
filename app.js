@@ -14,6 +14,8 @@ const facilityFeeRoutes = require('./routes/facilityFee'); // Import the facilit
 const userRoutes = require('./routes/user'); // Import the user routes
 const facilityPaymentRoutes = require('./routes/facilityPaymentRoutes'); // Import the facilityPayment routes
 const parentRoutes = require('./routes/parentRoutes'); // Import the parent routes
+const eventApplyRoutes = require('./routes/eventApply'); // Import the eventApply routes
+
 const cors = require('cors');
 
 const app = express();
@@ -46,6 +48,7 @@ app.use('/api/facility-fee', facilityFeeRoutes); // facilityFee routes
 app.use('/api/user', userRoutes); // user routes
 app.use('/api/facility-payments', facilityPaymentRoutes); // facilityPayment routes
 app.use('/api/parent', parentRoutes); // parent routes
+app.use('/api/event', eventApplyRoutes); // Event apply routes
 
 // Start Server
 const PORT = 3000;

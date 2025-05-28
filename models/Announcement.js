@@ -11,7 +11,7 @@ const announcementSchema = new mongoose.Schema({
   },
   type: {
     type: String,
-    enum: ['announcement', 'reminder'],
+    enum: ['announcement', 'reminder', 'event'],
     default: 'announcement'
   },
   createdBy: {
@@ -26,7 +26,7 @@ const announcementSchema = new mongoose.Schema({
   },
   date: {
     type: Date,
-    default: Date.now
+    required: true
   }
 }, { timestamps: true });
 

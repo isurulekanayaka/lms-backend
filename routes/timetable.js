@@ -9,7 +9,7 @@ router.post('/publish', auth, lectureOnly, timetableController.publishTimetable)
 
 // READ
 router.get('/all', auth, timetableController.getAllTimetables);
-router.get('/:id', auth, timetableController.getTimetableById);
+router.get('/id/:id', auth, timetableController.getTimetableById);
 
 // UPDATE
 router.put('/update/:id', auth, lectureOnly, timetableController.updateTimetable);

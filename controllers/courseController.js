@@ -110,3 +110,13 @@ exports.getCourses = async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 };
+
+// Get total count of courses
+exports.getCourseCount = async (req, res) => {
+  try {
+    const count = await Course.countDocuments();
+    res.status(200).json({ count });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};

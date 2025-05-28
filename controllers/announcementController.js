@@ -2,7 +2,12 @@ const Announcement = require('../models/Announcement');
 
 // f1: Create Announcement
 exports.createAnnouncement = async (req, res) => {
-  const { title, message, type, audience } = req.body;
+  const { title, message, type = 'announcement', audience, date } = req.body;
+
+  // Basic validation
+  if (!title || !message) {
+    return res.status(400).json({ error: 'Title and message are required.' });
+  }
 
   try {
     const announcement = new Announcement({
@@ -10,7 +15,8 @@ exports.createAnnouncement = async (req, res) => {
       message,
       type,
       audience,
-      createdBy: req.user.id
+      date: date || Date.now(),   // use provided date or now
+      createdBy: req.user?.id     // safe access in case req.user is undefined
     });
 
     const saved = await announcement.save();
@@ -19,6 +25,7 @@ exports.createAnnouncement = async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 };
+
 
 // f2: Read All Announcements
 exports.getAllAnnouncements = async (req, res) => {
@@ -105,6 +112,35 @@ exports.getAnnouncementById = async (req, res) => {
     if (!announcement) return res.status(404).json({ msg: 'Announcement not found' });
 
     res.status(200).json(announcement);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+
+// Get count of pending events (events with type 'event' and date in the future)
+exports.getPendingEventsCount = async (req, res) => {
+  try {
+    const now = new Date();
+    const count = await Announcement.countDocuments({
+      type: 'event',
+      date: { $gt: now }  // event date greater than now = upcoming/pending
+    });
+
+    res.status(200).json({ count: count });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+
+// Get all pending announcements (type 'announcement' or 'reminder' and date in the future)
+exports.getPendingAnnouncements = async (req, res) => {
+  try {
+    const now = new Date();
+    const pendingAnnouncements = await Announcement.find({
+      date: { $gt: now }
+    }).populate('createdBy', 'name email');
+
+    res.status(200).json(pendingAnnouncements);
   } catch (err) {
     res.status(500).json({ error: err.message });
   }

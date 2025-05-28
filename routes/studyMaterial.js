@@ -12,7 +12,7 @@ router.post('/add', auth, lectureOnly, studyMaterialController.createStudyMateri
 router.get('/all', auth, studyMaterialController.getAllStudyMaterials);
 
 // READ - Get a single study material by ID
-router.get('/:id', auth, studyMaterialController.getStudyMaterialById);
+router.get('/id/:id', auth, studyMaterialController.getStudyMaterialById);
 
 // UPDATE study material
 router.put('/update/:id', auth, lectureOnly, studyMaterialController.updateStudyMaterial);

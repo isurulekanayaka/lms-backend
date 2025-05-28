@@ -16,7 +16,7 @@ router.get('/search', auth, gradeReportController.searchGradeReports);
 router.get('/all', auth, adminOnly, gradeReportController.getAllGradeReports);
 
 // f2: Get grade report by ID
-router.get('/:id', auth, gradeReportController.getGradeReportById);
+router.get('/id/:id', auth, gradeReportController.getGradeReportById);
 
 // f3: Update grade report (admin only)
 router.put('/update/:id', auth, adminOnly, gradeReportController.updateGradeReport);

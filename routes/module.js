@@ -11,7 +11,7 @@ router.post('/add', auth, adminOnly, moduleController.createModule);
 router.get('/all', auth, moduleController.getAllModules);
 
 // f3: Get module by ID (auth required)
-router.get('/:id', auth, moduleController.getModuleById);
+router.get('/id/:id', auth, moduleController.getModuleById);
 
 // f4: Update a module (admin only)
 router.put('/update/:id', auth, adminOnly, moduleController.updateModule);

@@ -14,7 +14,7 @@ router.get('/search', auth, feeController.searchFacilityFees);
 router.get('/all', auth, feeController.getAllFacilityFees);
 
 // f2: Get facility fee by ID (keep this below /all and /search)
-router.get('/:id', auth, feeController.getFacilityFeeById);
+router.get('/id/:id', auth, feeController.getFacilityFeeById);
 
 // f3: Update an existing facility fee
 router.put('/update/:id', auth, adminOnly, feeController.updateFacilityFee);

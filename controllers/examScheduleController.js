@@ -108,3 +108,18 @@ exports.getAllExamSchedules = async (req, res) => {
   }
 };
 
+// f7: Get Upcoming Exam Schedules
+exports.getUpcomingExamSchedules = async (req, res) => {
+  try {
+    const now = new Date();
+
+    const upcomingSchedules = await ExamSchedule.find({
+      date: { $gt: now }   // assuming your exam date field is `examDate`
+    }).populate('moduleId', 'name');
+
+    res.status(200).json(upcomingSchedules);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+

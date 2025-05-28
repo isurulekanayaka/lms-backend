@@ -38,6 +38,16 @@ exports.getAllUsers = async (req, res) => {
   }
 };
 
+// Get user count
+exports.getUserCount = async (req, res) => {
+  try {
+    const count = await User.countDocuments();
+    res.json({ count });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+
 // Get user by ID
 exports.getUserById = async (req, res) => {
   try {

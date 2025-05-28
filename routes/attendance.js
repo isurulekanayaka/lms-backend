@@ -14,7 +14,7 @@ router.get('/search', auth, attendanceController.searchAttendance);
 router.get('/all', auth, attendanceController.getAllAttendance);
 
 // f2: Get a single attendance record by ID
-router.get('/:id', auth, attendanceController.getAttendanceById); 
+router.get('/id/:id', auth, attendanceController.getAttendanceById); 
 
 // f3: Update attendance by ID
 router.put('/update/:id', auth, lectureOnly, attendanceController.updateAttendance); 

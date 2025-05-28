@@ -10,11 +10,14 @@ router.post('/add', auth, adminOnly, courseController.createCourse);
 // View all courses
 router.get('/all', auth, courseController.getCourses);
 
+// get course count
+router.get('/count', auth, courseController.getCourseCount);
+
 // f5: Search by courseDirector
 router.get('/search/director', auth, courseController.searchByDirector);
 
 // f2: Get Course by ID
-router.get('/:id', auth, courseController.getCourseById);
+router.get('/id/:id', auth, courseController.getCourseById);
 
 // f3: Update Course (admin only)
 router.put('/update/:id', auth, adminOnly, courseController.updateCourse);
