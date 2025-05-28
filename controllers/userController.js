@@ -96,7 +96,7 @@ exports.deleteUser = async (req, res) => {
   }
 };
 
-// Search by role or email
+// Search by email
 exports.searchUser = async (req, res) => {
   try {
     const { email, page = 1, limit = 10 } = req.query;
@@ -123,4 +123,38 @@ exports.searchUser = async (req, res) => {
   }
 };
 
+// Get user count grouped by role
+exports.getUserCountByRole = async (req, res) => {
+  try {
+    const counts = await User.aggregate([
+      {
+        $group: {
+          _id: "$role", // Group by the 'role' field
+          count: { $sum: 1 },
+        },
+      },
+      {
+        $project: {
+          role: "$_id",
+          count: 1,
+          _id: 0,
+        },
+      },
+    ]);
 
+    res.json({ counts });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+
+// In your userController.js
+exports.getUsersByRole = async (req, res) => {
+  const role = req.query.role;
+  try {
+    const users = await User.find({ role });
+    res.json(users);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};

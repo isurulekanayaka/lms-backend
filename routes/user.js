@@ -17,4 +17,10 @@ router.get('/id/:id', auth, userController.getUserById);
 router.put('/id/:id', auth, adminOnly, userController.updateUser);
 router.delete('/id/:id', auth, adminOnly, userController.deleteUser);
 
+// Get user count grouped by role
+router.get('/count-by-role', userController.getUserCountByRole);
+
+// In routes/user.js
+router.get('/by-role', userController.getUsersByRole);
+
 module.exports = router;
