@@ -5,7 +5,7 @@ const adminOnly = require('../middleware/adminOnly'); // ✅ Admin-only check
 const moduleController = require('../controllers/moduleController');
 
 // f1: Create a new module (admin only)
-router.post('/add', auth, adminOnly, moduleController.createModule);
+router.post('/add', auth, moduleController.createModule);
 
 // f2: Get all modules (auth required)
 router.get('/all', auth, moduleController.getAllModules);
