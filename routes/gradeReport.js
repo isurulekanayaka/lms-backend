@@ -13,7 +13,7 @@ router.post('/publish', auth, lectureOnly, gradeReportController.publishGradeRep
 router.get('/search', auth, gradeReportController.searchGradeReports);
 
 // f6: Get all grade reports (admin only)
-router.get('/all', auth, adminOnly, gradeReportController.getAllGradeReports);
+router.get('/all', auth, gradeReportController.getAllGradeReports);
 
 // f2: Get grade report by ID
 router.get('/id/:id', auth, gradeReportController.getGradeReportById);

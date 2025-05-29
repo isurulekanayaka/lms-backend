@@ -76,3 +76,20 @@ exports.deleteModule = async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 };
+
+// f2: Get Modules by Course ID
+exports.getModulesByCourseId = async (req, res) => {
+  const { courseId } = req.params; // assuming courseId comes from URL params
+
+  try {
+    const modules = await Module.find({ courseId: courseId });
+    
+    if (modules.length === 0) {
+      return res.status(404).json({ error: 'No modules found for this course' });
+    }
+
+    res.status(200).json({ modules });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};

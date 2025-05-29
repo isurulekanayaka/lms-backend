@@ -11,8 +11,8 @@ router.get('/search/query', auth, adminOnly, userController.searchUser);
 router.get('/count', auth, adminOnly, userController.getUserCount);
 
 // CRUD routes
-router.post('/create', auth, adminOnly, userController.createUser);
-router.get('/all', auth, adminOnly, userController.getAllUsers);
+router.post('/create', auth, userController.createUser);
+router.get('/all', auth, userController.getAllUsers);
 router.get('/id/:id', auth, userController.getUserById);
 router.put('/id/:id', auth, adminOnly, userController.updateUser);
 router.delete('/id/:id', auth, adminOnly, userController.deleteUser);
