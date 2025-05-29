@@ -182,3 +182,56 @@ exports.deleteParent = async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 };
+
+// Get student ID and course IDs by user ID
+exports.getStudentByUserId = async (req, res) => {
+  console.log('getStudentByUserId called');
+  console.log('req.user:', req.user);
+
+  const userId = req.user?.id;
+  if (!userId) {
+    console.log('User ID missing in request');
+    return res.status(400).json({ error: 'User ID not found in request' });
+  }
+
+  try {
+    const student = await Student.findOne({ user: userId }).populate('courses');
+    console.log('Student found:', student);
+
+    if (!student) {
+      console.log('Student not found');
+      return res.status(404).json({ error: 'Student not found' });
+    }
+
+    res.status(200).json({
+      studentId: student._id,
+      courseIds: student.courses.map(course => course._id),
+    });
+  } catch (err) {
+    console.error('Error fetching student:', err);
+    res.status(500).json({ error: err.message });
+  }
+};
+
+
+exports.getStudentByUserIdByParam = async (req, res) => {
+  const userId = req.params.id;
+
+  if (!userId) {
+    return res.status(400).json({ error: 'User ID is required' });
+  }
+
+  try {
+    const student = await Student.findOne({ user: userId }).populate('courses');
+    if (!student) {
+      return res.status(404).json({ error: 'Student not found' });
+    }
+
+    res.status(200).json({
+      studentId: student._id,
+      courseIds: student.courses.map(course => course._id)
+    });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};

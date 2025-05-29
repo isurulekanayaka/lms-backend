@@ -19,4 +19,7 @@ router.put('/update/:id', auth, adminOnly, moduleController.updateModule);
 // f5: Delete a module (admin only)
 router.delete('/delete/:id', auth, adminOnly, moduleController.deleteModule);
 
+router.get('/moduls', auth, moduleController.getModulesByCourseId);
+
+
 module.exports = router;

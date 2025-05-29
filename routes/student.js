@@ -8,7 +8,7 @@ const studentController = require('../controllers/studentController');
 router.post('/add', auth, adminOnly, studentController.createStudent);
 
 // Get all students
-router.get('/all', auth, adminOnly, studentController.getAllStudents);
+router.get('/all', auth, studentController.getAllStudents);
 
 // Get a student by ID
 router.get('/id/:id', auth, studentController.getStudentById);
@@ -27,5 +27,8 @@ router.get('/parent/:studentId', auth, studentController.getParentByStudentId);
 
 // Delete a parent by ID
 router.delete('/parent/delete/:id', auth, adminOnly, studentController.deleteParent);
+
+// Get student ID and course IDs by user ID
+router.get('/get/student', auth, studentController.getStudentByUserId);
 
 module.exports = router;
